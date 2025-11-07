@@ -1,0 +1,70 @@
+classDiagram
+%% Diagrama de Classes - LembreMed (versão final)
+%% Cole este código em https://mermaid.live
+
+%% ======= Classes principais =======
+
+class Usuario {
+  - id: int
+  - nome: string
+  - email: string
+  - telefone: string
+  - senha: string
+  + cadastrarDados()
+  + editarDados()
+  + autenticar()
+}
+
+class Medicamento {
+  - id: int
+  - nome: string
+  - dosagem: string
+  - horario: string
+  - observacoes: string
+  + cadastrar()
+  + editar()
+  + excluir()
+}
+
+class Lembrete {
+  - id: int
+  - horario: datetime
+  - mensagem: string
+  - ativo: bool
+  + agendar()
+  + cancelar()
+  + dispararNotificacao()
+}
+
+class Notificacao {
+  - id: int
+  - titulo: string
+  - mensagem: string
+  - dataHoraEnvio: datetime
+  + enviar()
+}
+
+class Historico {
+  - id: int
+  - dataHora: datetime
+  - status: string
+  - observacao: string
+  + registrarEvento()
+  + consultarHistorico()
+}
+
+%% ======= Relacionamentos =======
+
+Usuario "1" --> "1..*" Medicamento : gerencia
+Medicamento "1" --> "1" Lembrete : possui
+Lembrete "1" --> "1" Notificacao : dispara
+Usuario "1" --> "1..*" Historico : consulta
+Medicamento "1" --> "0..*" Historico : gera
+
+%% ======= Notas explicativas =======
+
+note for Usuario "Representa o ator principal do sistema. Gerencia seus dados, medicamentos e histórico."
+
+note for Lembrete "Define o horário e mensagem do lembrete. Conecta o medicamento à notificação."
+
+note for Historico "Armazena registros de doses tomadas ou esquecidas pelo usuário."
