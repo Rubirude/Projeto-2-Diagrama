@@ -1,0 +1,43 @@
+"CODIGO FEITO NO MERMAID"
+
+
+flowchart TD
+%% Diagrama de Casos de Uso - LembreMed (versão final corrigida)
+%% Cole este código em https://mermaid.live
+
+%% ======= Atores =======
+Usuario["Usuário"]
+SistemaNotificacoes["Sistema de Notificações"]
+
+%% ======= Casos de Uso =======
+CadastrarMedicamento["Cadastrar Medicamento"]
+EditarExcluirMedicamento["Editar/Excluir Medicamento"]
+ConfirmarMedicacaoTomada["Confirmar Medicação Tomada"]
+VisualizarHistorico["Visualizar Histórico de Medicações"]
+CadastrarDadosPessoais["Cadastrar Dados Pessoais"]
+EnviarNotificacao["Enviar Notificação de Lembrete"]
+
+%% ======= Relações principais =======
+Usuario --> CadastrarMedicamento
+Usuario --> EditarExcluirMedicamento
+Usuario --> ConfirmarMedicacaoTomada
+Usuario --> VisualizarHistorico
+Usuario --> CadastrarDadosPessoais
+
+SistemaNotificacoes --> EnviarNotificacao
+
+%% ======= Relações de inclusão e extensão =======
+EditarExcluirMedicamento -.->|<<include>>| CadastrarMedicamento
+EnviarNotificacao -.->|<<extend>>| ConfirmarMedicacaoTomada
+
+%% ======= Notas informativas =======
+NotaUsuario["**Usuário**: Ator principal do sistema.
+Interage com as funcionalidades de cadastro,
+edição e acompanhamento de medicamentos."]
+
+NotaSistema["**Sistema de Notificações**: Responsável por
+emitir lembretes automáticos conforme os horários
+configurados pelo usuário."]
+
+Usuario -.-> NotaUsuario
+SistemaNotificacoes -.-> NotaSistema
